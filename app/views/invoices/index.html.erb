@@ -1,0 +1,78 @@
+<% if notice %>
+  <div class="alert alert-success">
+    <p id="notice"><%= notice %></p>
+  </div>
+<% end %>
+
+<div id="top" class="row">
+    <div class="col-md-3">
+        <h2>Invoices</h2>
+    </div>
+ 
+    <div class="col-md-6">
+        <div class="input-group h2">
+            <input onkeyup="searchTest()" class="form-control" id="search" type="text" placeholder="Pesquisar Itens">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit">
+                    <span class="fa fa-search"></span>
+                </button>
+            </span> 
+        </div>
+    </div>
+ 
+    <div class="col-md-3">
+        <%= awesome_link 'fa-plus btn btn-primary pull-right h2', new_invoice_path %>
+    </div>
+</div>
+<table class="table" id="table">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Role</th>
+      <th>Name</th>
+      <th>Amount</th>
+      <th>Due date</th>
+      <th>Paid</th>
+      <th class="text-center"><%= fa_icon 'cog' %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @invoices.each do |invoice| %>
+      <tr>
+        <td><%= invoice.category.name %></td>
+        <td><%= invoice.role %></td>
+        <td><%= invoice.name %></td>
+        <td><%= invoice.amount %></td>
+        <td><%= invoice.due_date %></td>
+        <td><%= invoice.paid %></td>
+        <td class="text-center">
+        <%= awesome_link 'fa-eye', invoice, class: 'btn btn-default' %>
+        <%= awesome_link 'fa-pencil', edit_invoice_path(invoice), class: 'btn btn-default' %>
+        <%= awesome_link 'fa-trash', invoice, method: :delete, data: {confirm: 'Tem certeza?'}, class: 'btn btn-default' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @invoices, renderer: BootstrapPagination::Rails, :previous_label => 'Voltar', :next_label => 'Avançar'  %>
+
+<script>
+function searchTest() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("search");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("table");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>

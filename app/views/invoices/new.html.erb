@@ -1,0 +1,9 @@
+<div id="top" class="row">
+	<div class="col-md-3">
+	    <h2>Novo Invoice</h2>
+	</div>
+</div>
+<div id="form">
+	<%= render 'form', invoice: @invoice %>
+	<%= awesome_link 'fa-arrow-left', invoices_path, class: 'btn btn-default' %>
+</div><br>

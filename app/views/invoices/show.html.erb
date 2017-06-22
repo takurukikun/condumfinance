@@ -1,0 +1,42 @@
+<% if notice %>
+  <div class="alert alert-success">
+    <p id="notice"><%= notice %></p>
+  </div>
+<% end %>
+
+<h1>Visualizando Categoria</h1>
+
+<strong>Category:</strong>
+
+<ul class="list-group">
+  <li class="list-group-item"><%= @invoice.category.name %></li>
+</ul>
+
+
+<strong>Role:</strong>
+<ul class="list-group">
+  <li class="list-group-item"><%= @invoice.role %></li>
+</ul>
+
+<strong>Name:</strong>
+<ul class="list-group">
+  <li class="list-group-item"><%= @invoice.name %></li>
+</ul>
+
+<strong>Amount:</strong>
+<ul class="list-group">
+  <li class="list-group-item"><%= @invoice.amount %></li>
+</ul>
+
+<strong>Due date:</strong>
+<ul class="list-group">
+  <li class="list-group-item"><%= @invoice.due_date %></li>
+</ul>
+
+<strong>Paid:</strong>
+<ul class="list-group">
+  <li class="list-group-item"><%= @invoice.paid %></li>
+</ul>
+
+<%= awesome_link 'fa-pencil', edit_invoice_path(@invoice), class: 'btn btn-default' %>
+<%= awesome_link 'fa-arrow-left', invoices_path, class: 'btn btn-default' %>

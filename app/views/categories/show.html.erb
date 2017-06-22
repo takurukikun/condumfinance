@@ -1,0 +1,15 @@
+<% if notice %>
+	<div class="alert alert-success">
+	  <p id="notice"><%= notice %></p>
+	</div>
+<% end %>
+
+<h1>Visualizando Categoria</h1>
+
+<strong>Nome:</strong>
+<ul class="list-group">
+	<li class="list-group-item"><%= @category.name %></li>
+</ul>
+
+<%= awesome_link 'fa-pencil', edit_category_path(@category), class: 'btn btn-default' %>
+<%= awesome_link 'fa-arrow-left', categories_path, class: 'btn btn-default' %>

@@ -1,0 +1,95 @@
+<%= form_for @invoice, :html => {:class => "form-horizontal"} do |form| %>
+  <% if invoice.errors.any? %>
+      <div class="alert alert-danger">
+        <%= pluralize(invoice.errors.count, "erro") %> proibindo isto de ser savlo:
+        <ul>
+        <% invoice.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+  <% end %>
+  <div class="form-group">
+    <%= form.label :category_id, "Categoria:", class: "col-md-1 control-label" %>
+    <div class="col-md-5">
+      <%= form.number_field :category_id, id: :invoice_category_id, class: "form-control", min: 0 %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :role, "Role:", class: "col-md-1 control-label" %>
+    <div class="col-md-5">
+      <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary" id="invoice_receipt">
+          <%= form.radio_button :role, "receipt" %>Receipt
+        </label>
+        <label class="btn btn-primary" id="invoice_expense">
+          <%= form.radio_button :role, "expense" %>Expense
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :name, "Nome:", class: "col-md-1 control-label" %>
+    <div class="col-md-5">
+      <%= form.text_field :name, id: :invoice_name,  class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :amount, "Amount:", class: "col-md-1 control-label" %>
+    <div class="col-md-5">
+      <%= form.text_field :amount, id: :invoice_amount, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :due_date, "Data:", class: "col-md-1 control-label" %>
+    <div class="col-md-5">
+      <%= form.text_field  :due_date, id: :invoice_due_date, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :paid, "Pago:", class: "col-md-1 control-label"  %>
+    <div class="col-md-5">
+      <%= form.check_box :paid, id: :invoice_paid %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-10">
+      <%= form.submit "Enviar", class: "btn btn-default btn-primary" %>  
+    </div>
+  </div>
+
+<% end %>
+<script>
+
+  $("input:checkbox").bootstrapSwitch({
+    size: "small",
+    onText: "Sim",
+    offText: "Não"
+  });
+
+  $(document).ready(function(){
+    $('.datepicker').datepicker();  
+  });
+
+  if($("#invoice_role_receipt").is(":checked")){
+    $("#invoice_receipt").addClass("active");
+    $("#invoice_expense").removeClass("active");
+  }else if($("#invoice_role_expense").is(":checked")){
+    $("#invoice_receipt").removeClass("active");    
+    $("#invoice_expense").addClass("active");
+  }
+
+  $('#invoice_due_date').datepicker({
+        language: 'pt-BR',
+        weekStart: 0,
+        startDate:'0d',
+        todayHighlight: true
+  });
+
+</script>
